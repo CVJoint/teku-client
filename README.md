@@ -26,13 +26,14 @@ mkdir /home/$USER/gnosis/cl-client/validator/slashprotection
 mkdir /home/$USER/gnosis/jwtsecret
 ```
 
-2. Add an `.env` file with your WAN IP (`curl https://ipinfo.io/ip`), fee recepient (your gnosis address), graffiti, and checkpoint url `/home/$USER/gnosis/.env`.
+2. Add an `.env` file with your WAN IP (`curl https://ipinfo.io/ip`), fee recepient (your gnosis address), graffiti, checkpoint url, and your user id (PUID, `id --user`) `/home/$USER/gnosis/.env`.
 
 ```
 WAN_IP:123.456.789.012
 FEE_RECIPIENT=0x0000000000000000000000000000000000000000
 GRAFFITI=gnosischain/teku
 CHECKPOINT_URL=https://rpc-gbc.gnosischain.com/
+PUID=1000
 ```
 
 3. Add your keystores in `/home/$USER/gnosis/cl-client/validator/keys` and their password in a file `/home/$USER/gnosis/cl-client/validator/passwords` to get this file structure:

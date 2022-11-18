@@ -21,7 +21,7 @@ services:
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
     environment:
-      - NETHERMIND_CONFIG=xdai_archive
+      - NETHERMIND_CONFIG=xdai
       - NETHERMIND_JSONRPCCONFIG_ENABLED=true
       - NETHERMIND_JSONRPCCONFIG_HOST=192.168.32.100
       - NETHERMIND_JSONRPCCONFIG_PORT=8545
@@ -33,6 +33,7 @@ services:
       driver: "local"
 
   cl-client:
+    user: "${PUID:-1000}
     hostname: cl-client
     container_name: cl-client
     image: consensys/teku:latest
@@ -46,18 +47,19 @@ services:
       --ee-jwt-secret-file=/jwtsecret
       --eth1-deposit-contract-max-request-size=8000
       --p2p-advertised-ip=$WAN_IP
+      --log-destination=CONSOLE
       --validator-keys=/data/validator/keys:/data/validator/passwords
       --validators-proposer-default-fee-recipient=$FEE_RECIPIENT
       --validators-keystore-locking-enabled=false
       --validators-graffiti=$GRAFFITI
       --initial-state=${CHECKPOINT_URL}/eth/v2/debug/beacon/states/finalized
     networks:
-      net:
+      gnosis_net:
         ipv4_address: 192.168.32.101
     ports:
       - 9000:9000 # p2p
     volumes:
-      - /home/$USER/gnosis/cl-client/data:/data
+      - /home/$USER/gnosis/cl-client:/data
       - /home/$USER/gnosis/jwtsecret/jwtsecret:/jwtsecret
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
